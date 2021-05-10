@@ -1,7 +1,6 @@
 import streamlit as st
 import requests
 import pandas as pd
-from bs4 import BeautifulSoup
 from tqdm import tqdm
 
 st.title('こうすけブログ分析')
