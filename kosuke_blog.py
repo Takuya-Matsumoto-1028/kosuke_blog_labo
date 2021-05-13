@@ -1,9 +1,6 @@
 import streamlit as st
 import requests
-from bs4 import BeautifulSoup
 import pandas as pd
-from pytube import YouTube
-import datetime
 
 st.title('こうすけブログ分析')
 
@@ -54,36 +51,3 @@ magnitud : 感情の強さ
 score : 感情の点数(-はネガティブ / +はポジティブ)
 """
 st.write(js['documentSentiment'])
-
-st.title("Youtube Video Donwloader")
-st.subheader("Enter the URL:")
-url = st.text_input(label='URL')
-#print(yt.streams)
-#print(caption.generate_srt_captions())
-if url != '':
-    yt = YouTube(url)
-    st.image(yt.thumbnail_url, width=300)
-    c = yt.length
-    td = datetime.timedelta(seconds=(c))
-    st.title(td)
-    st.subheader(yt.title )
-    video = yt.streams
-    if len(video) > 0:
-        downloaded , download_audio = False , False
-        download_video = st.button("ダウンロード ビデオ")
-        if yt.streams.filter(only_audio=True):
-            download_audio = st.button("ダウンロード　音声のみ")
-        if download_video:
-            video.get_lowest_resolution().download(r'C:\video')
-            downloaded = True
-        if download_audio:
-            video.filter(only_audio=True).first().download(r'C:\music')
-            downloaded = True
-        if downloaded:
-            st.subheader("ダウンロード完了しました")
-            
-    else:
-        st.subheader("ダウンロードできませんでした")
-    audio_file = st.file_uploader('File uploader')
-    st.text("再生する")    
-    st.audio(audio_file)
